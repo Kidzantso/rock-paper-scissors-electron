@@ -13,7 +13,14 @@ const buttons = document.querySelectorAll('button[data-choice]');
 const turnResult = document.getElementById('turn-result');
 const currentScore = document.getElementById('current-score');
 const roundsLog = document.getElementById('rounds-log');
+
 const nextRoundBtn = document.getElementById('next-round');
+const restartRoundBtn = document.getElementById('restart-round');
+const restartGameBtn = document.getElementById('restart-game');
+
+// Initial UI setup
+nextRoundBtn.style.display = 'none';
+restartRoundBtn.style.display = 'inline-block';
 
 function getComputerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
@@ -62,6 +69,7 @@ function finishRound() {
 
   const turnDetails = document.createElement('div');
   turnDetails.classList.add('turn-details');
+  turnDetails.style.display = "none";
 
   roundTurns.forEach((t, i) => {
     const turnText = document.createElement('p');
@@ -78,9 +86,41 @@ function finishRound() {
 
   roundsLog.appendChild(li);
 
-  // Reset for next round
   nextRoundBtn.style.display = 'inline-block';
+  restartRoundBtn.style.display = 'none';
   buttons.forEach(btn => btn.disabled = true);
+}
+
+function resetRound() {
+  playerScore = 0;
+  computerScore = 0;
+  turnCount = 0;
+  roundTurns = [];
+  turnResult.textContent = "Round restarted! Pick your move.";
+  displayScore();
+  buttons.forEach(btn => btn.disabled = false);
+
+  restartRoundBtn.style.display = 'inline-block';
+  nextRoundBtn.style.display = 'none';
+}
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  turnCount = 0;
+  roundNumber = 1;
+  roundTurns = [];
+  gameLog = [];
+
+  turnResult.textContent = "Game restarted! Pick your move.";
+  displayScore();
+  roundsLog.innerHTML = '';
+  buttons.forEach(btn => btn.disabled = false);
+
+  nextRoundBtn.style.display = 'none';
+  restartRoundBtn.style.display = 'inline-block';
+
+  saveGameLog();
 }
 
 buttons.forEach(button => {
@@ -91,6 +131,7 @@ buttons.forEach(button => {
 
     if (result === "draw") {
       turnResult.textContent = `It's a draw! You both chose ${player}.`;
+      roundTurns.push({ player, computer, result });
       return;
     }
 
@@ -119,7 +160,17 @@ nextRoundBtn.addEventListener('click', () => {
   roundNumber++;
 
   turnResult.textContent = "New round started! Pick your move.";
-  currentScore.textContent = `Current Round Score: You 0 - 0 Computer`;
+  displayScore();
   buttons.forEach(btn => btn.disabled = false);
+
   nextRoundBtn.style.display = 'none';
+  restartRoundBtn.style.display = 'inline-block';
+});
+
+restartRoundBtn.addEventListener('click', () => {
+  resetRound();
+});
+
+restartGameBtn.addEventListener('click', () => {
+  resetGame();
 });

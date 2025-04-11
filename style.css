@@ -105,4 +105,37 @@
     padding: 15px;
     border-radius: 8px;
   }
+  .restart-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 275px;
+  }
+  
+  .btn-restart,
+  .btn-restart-round {
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-restart {
+    background-color: #ff4b5c;
+  }
+  
+  .btn-restart:hover {
+    background-color: #c9303e;
+  }
+  
+  .btn-restart-round {
+    background-color: #4b7bec;
+  }
+  
+  .btn-restart-round:hover {
+    background-color: #3867d6;
+  }
+  
   
