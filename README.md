@@ -6,3 +6,7 @@ This is an implementation for Rock Paper Scissors 🪨📄✂ as my fourth proje
 + **First day**
 
 Added the html/css and the logic for saving the turns and rounds 
+
++ **Second day**
+
+Added Restart round button : reset this turn's variables and added Restart game button : reset the whole log and the UI
